@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns= [
 
-        path('id/<str:id>', views.idfetch),
+        path('<str:id>', views.idfetch),
 
         ]
 
