@@ -51,7 +51,8 @@ def idfetch(request, id):
         if response.status_code == 200:
             temp[user]= response.json()
         Leetreturn={
-            'status': status,
+            'Status': status,
+            'User': user,
             'Total': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][0]['count'],
             'Easy': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][1]['count'],
             'Medium': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][2]['count'],
@@ -61,5 +62,5 @@ def idfetch(request, id):
               # print(f'{user}: {allvar} {easyvar} {medvar} {hardvar} {rating}')
         return JsonResponse(Leetreturn)
     except TypeError:
-      return JsonResponse({'status': 404})
+      return JsonResponse({'Status': 404, 'User': user})
 
