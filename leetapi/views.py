@@ -40,19 +40,26 @@ def idfetch(request, id):
     }
 
     """
-    response = requests.post(url=url, json={"query": ProblemSolvedQuery,"variables": {"username":user}})
-    if response.status_code == 200:
-        details[user]= response.json()
+    status= 404
+    try: 
+        response = requests.post(url=url, json={"query": ProblemSolvedQuery,"variables": {"username":user}})
+        if response.status_code == 200:
+            status=200
+            details[user]= response.json()
 
-    response = requests.post(url=url, json={"query": ContestRatingQuery,"variables": {"username":user}})
-    if response.status_code == 200:
-        temp[user]= response.json()
-    Leetreturn={
-        'Total': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][0]['count'],
-        'Easy': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][1]['count'],
-        'Medium': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][2]['count'],
-        'Hard': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][3]['count'],
-        'Rating': round(temp[user]['data']['userContestRanking']['rating'])
-    }
-        # print(f'{user}: {allvar} {easyvar} {medvar} {hardvar} {rating}')
-    return JsonResponse(Leetreturn)
+        response = requests.post(url=url, json={"query": ContestRatingQuery,"variables": {"username":user}})
+        if response.status_code == 200:
+            temp[user]= response.json()
+        Leetreturn={
+            'status': status,
+            'Total': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][0]['count'],
+            'Easy': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][1]['count'],
+            'Medium': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][2]['count'],
+            'Hard': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][3]['count'],
+            'Rating': round(temp[user]['data']['userContestRanking']['rating'])
+        }
+              # print(f'{user}: {allvar} {easyvar} {medvar} {hardvar} {rating}')
+        return JsonResponse(Leetreturn)
+    except TypeError:
+      return JsonResponse({'status': 404})
+
