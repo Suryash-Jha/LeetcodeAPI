@@ -1,1 +1,1 @@
-web:gunicorn leetcodeapi.wsgi --log-file -
+web: gunicorn leetcodeapi.wsgi --log-file -
