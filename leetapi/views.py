@@ -6,7 +6,7 @@ import requests
 # Create your views here.
 @api_view(['GET'])
 def hello(request):
-  return Response({'Message': 'Hello'})
+  return Response({'Message': 'Hello', 'Creator': 'Suryash Kumar Jha'})
 @api_view(['GET'])
 def idfetch(request, id):
     url = 'https://leetcode.com/graphql/'
@@ -45,6 +45,7 @@ def idfetch(request, id):
     }
 
     """
+
     status= 404
     try: 
         response = requests.post(url=url, json={"query": ProblemSolvedQuery,"variables": {"username":user}})
@@ -58,6 +59,7 @@ def idfetch(request, id):
         Leetreturn={
             'Status': status,
             'User': user,
+            'UserProfileLink': f'www.leetcode.com/{user}',
             'Total': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][0]['count'],
             'Easy': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][1]['count'],
             'Medium': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][2]['count'],
