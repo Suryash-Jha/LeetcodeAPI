@@ -5,6 +5,9 @@ from rest_framework.response import Response
 import requests
 # Create your views here.
 @api_view(['GET'])
+def hello(request):
+  return Response({'Message': 'Hello'})
+@api_view(['GET'])
 def idfetch(request, id):
     url = 'https://leetcode.com/graphql/'
     user= id
