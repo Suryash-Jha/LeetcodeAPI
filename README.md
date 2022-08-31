@@ -15,6 +15,7 @@ Response:
     {
     "Status": 200,
     "User": ,
+    "UserProfileLink": ,
     "Total": ,
     "Easy": ,
     "Medium": ,
@@ -27,6 +28,6 @@ Response:
   
   
     {
-    "Status": ,
+    "Status": 404,
     "User": 
     }
