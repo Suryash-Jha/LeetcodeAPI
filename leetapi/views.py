@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+# from django.shortcuts import render
+# from django.http import HttpResponse, JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 import requests
 # Create your views here.
-
+@api_view(['GET'])
 def idfetch(request, id):
     url = 'https://leetcode.com/graphql/'
     user= id
@@ -60,7 +62,7 @@ def idfetch(request, id):
             'Rating': round(temp[user]['data']['userContestRanking']['rating'])
         }
               # print(f'{user}: {allvar} {easyvar} {medvar} {hardvar} {rating}')
-        return JsonResponse(Leetreturn)
+        return Response(Leetreturn)
     except TypeError:
-      return JsonResponse({'Status': 404, 'User': user})
+      return Response({'Status': 404, 'User': user})
 
