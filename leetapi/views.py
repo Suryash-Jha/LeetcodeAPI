@@ -46,7 +46,6 @@ def idfetch(request, id):
 
     """
 
-    status= 404
     try: 
         response = requests.post(url=url, json={"query": ProblemSolvedQuery,"variables": {"username":user}})
         if response.status_code == 200:
@@ -56,6 +55,10 @@ def idfetch(request, id):
         response = requests.post(url=url, json={"query": ContestRatingQuery,"variables": {"username":user}})
         if response.status_code == 200:
             temp[user]= response.json()
+        try: 
+            ratingVar= round(temp[user]['data']['userContestRanking']['rating'])
+        except:
+            ratingVar= "Unrated"
         Leetreturn={
             'Status': status,
             'User': user,
@@ -64,10 +67,10 @@ def idfetch(request, id):
             'Easy': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][1]['count'],
             'Medium': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][2]['count'],
             'Hard': details[user]['data']['matchedUser']['submitStatsGlobal']['acSubmissionNum'][3]['count'],
-            'Rating': round(temp[user]['data']['userContestRanking']['rating'])
+            'Rating': ratingVar,
         }
               # print(f'{user}: {allvar} {easyvar} {medvar} {hardvar} {rating}')
         return Response(Leetreturn)
-    except TypeError:
+    except:
       return Response({'Status': 404, 'User': user})
 
