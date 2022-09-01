@@ -5,8 +5,12 @@ from rest_framework.response import Response
 import requests
 # Create your views here.
 @api_view(['GET'])
-def hello(request):
-  return Response({'Message': 'Hello', 'Creator': 'Suryash Kumar Jha'})
+def homePage(request):
+  return Response({
+    'Message': 'Hello', 
+    'Use API': 'https://leetapi.herokuapp.com/<leetcode-user-name>',
+    'Creator': 'Suryash Kumar Jha',
+    })
 @api_view(['GET'])
 def idfetch(request, id):
     url = 'https://leetcode.com/graphql/'
